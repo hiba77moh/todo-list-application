@@ -17,6 +17,7 @@ class TodoList extends Component
     #[Rule(['required', 'min:2'])]
 
     public $name;
+    public $search;
 
 
     public function create(){
@@ -30,7 +31,7 @@ class TodoList extends Component
     public function render()
     {
         return view('livewire.todo-list',[
-            'todo' => todo::latest()->paginate(5)
+            'todo' => todo::latest()->where('name','like',"%{$this->search}%")->paginate(5)
         ]);
     }
 }
