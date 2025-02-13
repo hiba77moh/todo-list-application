@@ -4,23 +4,27 @@
 
         <div class="flex">
             @if($todos->completed)
-                <input wire:click='heck({{$todos->id}})' class="mr-2" type="checkbox" checked />
+                <input wire:click='check({{$todos->id}})' class="mr-2" type="checkbox" checked />
             @else
                 <input wire:click='check({{$todos->id}})' class="mr-2" type="checkbox" />
             @endif
-            {{--  <input type="text" placeholder="Todo.."
-                        class="bg-gray-100  text-gray-900 text-sm rounded block w-full p-2.5"
-                        value="Todo Name">
-                        <span class="text-red-500 text-xs block">error</span>  --}}
-
                 {{--  todoList elements  --}}
+            @if($editingId === $todos->id)
+                     <input wire:model='editingName' type="text" placeholder="Todo.."
+                        class="bg-gray-100  text-gray-900 text-sm rounded block w-full p-2.5">
+                        @error('editingName')
+                        <span class="text-red-500 text-xs block">{{$message}}</span>  
+                        @enderror
+            @else
             <h3 class="text-lg text-semibold text-gray-800">{{$todos->name}}</h3>
+            @endif
+        
         </div>
 
 
             <div class="flex items-center space-x-2">
                 {{--  updating items  --}}
-                <button class="text-sm text-teal-500 font-semibold rounded hover:text-teal-800">
+                <button  wire:click="edit({{$todos->id}})" class="text-sm text-teal-500 font-semibold rounded hover:text-teal-800">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -40,11 +44,14 @@
             {{--  todoList element's created time  --}}
         <span class="text-xs text-gray-500">{{$todos->created_at}}</span>
         <div class="mt-3 text-xs text-gray-700">
-            <!--                         
-                    <button 
+
+            {{--  updating elements button  --}}
+            @if($editingId === $todos->id)
+                    <button wire:click='update'
                         class="mt-3 px-4 py-2 bg-teal-500 text-white font-semibold rounded hover:bg-teal-600">Update</button>
-                    <button 
-                        class="mt-3 px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600">Cancel</button> -->
+                    <button  wire:click='cancelEditing'
+                        class="mt-3 px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600">Cancel</button> 
+            @endif
 
         </div>
     </div>
