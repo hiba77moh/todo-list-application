@@ -41,7 +41,4 @@
         </div>
     </div>
 
-    <div class="my-2">
-        <!-- Pagination goes here -->
-    </div>
 </div>

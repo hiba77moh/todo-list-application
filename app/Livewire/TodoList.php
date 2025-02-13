@@ -3,12 +3,17 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Withpagination;
 use Livewire\Attributes\Rule;
 use App\Models\todo ;
 
 
 class TodoList extends Component
 {
+
+    use Withpagination ;
+
+
     #[Rule(['required', 'min:2'])]
 
     public $name;
@@ -25,7 +30,7 @@ class TodoList extends Component
     public function render()
     {
         return view('livewire.todo-list',[
-            'todo' => todo::latest()->get()
+            'todo' => todo::latest()->paginate(5)
         ]);
     }
 }

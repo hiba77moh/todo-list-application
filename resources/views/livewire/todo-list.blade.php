@@ -21,6 +21,10 @@
             @foreach ($todo as $todos)
             @include('Livewire.includes.todo-cards')
             @endforeach
-        
+            {{--  pagination  --}}
+        <div class="my-2">
+            {{$todo->links()}}
+        </div>
     </div>
+   
 </div>
