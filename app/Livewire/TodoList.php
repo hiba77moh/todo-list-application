@@ -32,6 +32,12 @@ class TodoList extends Component
 
     }
 
+    public function check($todoId){
+       $todo=todo::find($todoId);
+       $todo->completed =  !$todo->completed ;
+       $todo->save();
+    }
+
 
     public function render()
     {
